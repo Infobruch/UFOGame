@@ -4,12 +4,11 @@ public class UFOGame{
     GLLicht light;
     GLTastatur keyboard;
     GLHimmel himmel;
-
     UFO UFO;
     Asteroid[] asteroid;
 
     public UFOGame(){
-        cam1 = new GLSchwenkkamera();
+        cam1 = new GLKamera();
         cam1.setzePosition(0,-600,200);
         cam1.setzeBlickpunkt(0,0,200);
         cam1.setzeScheitelrichtung(0,0,1);

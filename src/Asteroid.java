@@ -3,10 +3,11 @@ public class Asteroid{
     private GLKugel asteroid;
     private UFO UFO;
 
+
     public Asteroid(UFO pUFO, GLTextur pTexture){
-        int x = (int)(Math.random()*3000 - 1500);
+        int x = (int)(Math.random()*3000 - 1700);
         int y = (int)(Math.random()*4000);
-        int z = (int)(Math.random()*3000 - 1500);
+        int z = (int)(Math.random()*3000 - 1700);
         asteroid = new GLKugel(x,y,z, 50, pTexture);
         asteroid.setzeSkalierung(1,Math.random()+0.3,Math.random()+0.3);
         UFO = pUFO;
