@@ -1,37 +1,31 @@
 import GLOOP.GLObjekt;
 import GLOOP.GLTextur;
 import GLOOP.GLVektor;
-
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 import java.io.File;
 import java.util.ArrayList;
-import java.io.BufferedReader;
 
 
 public class Model extends GLObjekt {
     private File file;
-
     public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ, File file) {
         this(pX, pY, pZ, pLX, pLY, pLZ);
         this.file = file;
     }
-
-    public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ, GLTextur pT) {
+    public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ,File file, GLTextur pT) {
         this(pX, pY, pZ, pLX, pLY, pLZ);
         this.setzeTextur(pT);
+        this.file = file;
     }
-
-    public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ, String pT) {
+    public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ,File file, String pT) {
         this(pX, pY, pZ, pLX, pLY, pLZ);
         this.setzeTextur(new GLTextur(pT));
+        this.file = file;
     }
-
     public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ) {
-
     }
-
     @Override
     public void zeichneObjekt(GL2 gl, GLU glu) {
         ArrayList<GLVektor> vertices = STLParser.importModel(this.file);
