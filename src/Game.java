@@ -5,7 +5,7 @@ public class Game {
     GLLicht light;
     GLTastatur keyboard;
     GLHimmel himmel;
-    Player player;
+    Player.Player player;
     Asteroid[] asteroid;
     boolean turnUp,turnDown,turnLeft,turnRight = false;
 
@@ -21,7 +21,7 @@ public class Game {
 
         himmel = new GLHimmel("src/img/sternhimmel.jpg");
 
-        player = new Player();
+        player = new Player.Player("MFalcon");
 
         GLTextur texture = new GLTextur("src/img/Krater.jpg");
         asteroid = new Asteroid[150];
@@ -34,7 +34,6 @@ public class Game {
             if (keyboard.istGedrueckt('a')) {
                 if (turnLeft){
                     player.moveLeft();
-                    System.out.println(turnLeft);
                 }
                 else {
                     player.moveLeft();

@@ -1,14 +1,25 @@
+package Player;
+
 import GLOOP.*;
+import Player.Passt.Model;
+
 import java.io.File;
 
 public class Player {
     Model player;
+    public String model;
 
-    public Player(){
-        player = new Model(0,0,0,10,10,10,new File("src/Model/t-fighter.stl"));
-        //player.drehe(90,0,0);
-        //player.skaliere(3.0);
-        player.skaliere(0.15);
+    public Player(String pmodel){
+        model = pmodel;
+        if (model == "TFighter"){
+            player = new Model(0,0,0,0,0,0,new File("src/Model/t-fighter.stl"),model);
+            player.skaliere(0.15);
+        }
+        if (model == "MFalcon"){
+            player = new Model(0,0,0,0,0,0,new File("src/Model/m-falcon.stl"),model);
+            player.drehe(90,0,0);
+            player.skaliere(3.0);
+        }
     }
 
     public void moveLeft(){
@@ -53,10 +64,9 @@ public class Player {
     public void explode(){
         double n = Math.random();
         for (int i=0; i< 2000; i++){
-            player.verschiebe(-n,n,-n);
-            player.drehe(-n,-n,n);
+            player.verschiebe(n,n,-n);
+            player.drehe(-n,n,n);
             Sys.warte();
         }
-        Sys.beenden();
     }
 }

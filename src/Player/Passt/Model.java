@@ -1,3 +1,5 @@
+package Player.Passt;
+
 import GLOOP.GLObjekt;
 import GLOOP.GLTextur;
 import GLOOP.GLVektor;
@@ -10,18 +12,20 @@ import java.util.ArrayList;
 
 public class Model extends GLObjekt {
     private File file;
-    public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ, File file) {
+    private String ship;
+    public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ, File file,String pShip) {
         this(pX, pY, pZ, pLX, pLY, pLZ);
         this.file = file;
+        ship = pShip;
     }
     public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ,File file, GLTextur pT) {
         this(pX, pY, pZ, pLX, pLY, pLZ);
         this.setzeTextur(pT);
         this.file = file;
     }
-    public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ,File file, String pT) {
+    public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ,File file) {
         this(pX, pY, pZ, pLX, pLY, pLZ);
-        this.setzeTextur(new GLTextur(pT));
+        //this.setzeTextur(new GLTextur(pT));
         this.file = file;
     }
     public Model(double pX, double pY, double pZ, double pLX, double pLY, double pLZ) {
