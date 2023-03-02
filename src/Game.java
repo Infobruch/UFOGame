@@ -7,9 +7,13 @@ public class Game {
     GLHimmel himmel;
     Player.Player player;
     Asteroid[] asteroid;
+    Coins[] coins;
+    int asteroidCount,coinCount = 0;
     boolean turnUp,turnDown,turnLeft,turnRight = false;
 
     public Game(){
+        asteroidCount = 150;
+        coinCount = 10;
         cam1 = new GLKamera();
         cam1.setzePosition(0,-600,200);
         cam1.setzeBlickpunkt(0,0,200);
@@ -23,10 +27,16 @@ public class Game {
 
         player = new Player.Player("MFalcon");
 
-        GLTextur texture = new GLTextur("src/img/Krater.jpg");
-        asteroid = new Asteroid[150];
-        for (int i=0; i<150; i++){
-            asteroid[i] = new Asteroid(player, texture);
+        GLTextur asteroidTex = new GLTextur("src/img/Krater.jpg");
+        asteroid = new Asteroid[asteroidCount];
+        for (int i=0; i<asteroidCount; i++){
+            asteroid[i] = new Asteroid(player, asteroidTex);
+        }
+
+        GLTextur coinTex = new GLTextur("src/img/coin.jpg");
+        coins = new Coins[coinCount];
+        for (int i=0; i<coinCount; i++){
+            coins[i] = new Coins(player, coinTex);
         }
     }
     public void run(){
@@ -96,8 +106,10 @@ public class Game {
                 }
             }
 
-            for (int i=0; i<150; i++)
+            for (int i=0; i<asteroidCount; i++)
                 asteroid[i].move();
+            for (int i=0; i<coinCount; i++)
+                coins[i].move();
             Sys.warte();
         }
         Sys.beenden();
