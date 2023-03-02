@@ -1,22 +1,27 @@
 import GLOOP.*;
+
 public class Coins{
     private GLKugel coin;
     private Player.Player player;
-    public Coins(Player.Player pPlayer, GLTextur pTexture){
+    UI.InGame.CoinUI coinUI;
+    public Coins(Player.Player pPlayer, GLTextur pTexture, UI.InGame.CoinUI pCoinUI){
         int x = (int)(Math.random()*3000 - 1700);
         int y = (int)(Math.random()*4000);
         int z = (int)(Math.random()*3000 - 1700);
         coin = new GLKugel(x,y,z, 20, pTexture);
         coin.setzeSkalierung(1,Math.random()+0.3,1);
         player = pPlayer;
+        coinUI = pCoinUI;
     }
 
     public void move(){
         coin.verschiebe(0,-2,0);
-        coin.drehe(0.1,0.1,0.1);
+        //coin.drehe(0.1,0.1,0.1);
         if (coin.gibY()<-300) this.reset();
         if (hit()){
+            coin.verschiebe(0,-100,0);
             coin.setzeSichtbarkeit(false);
+            coinUI.AddCoin(1);
         }
     }
 
@@ -36,6 +41,7 @@ public class Coins{
         int x = (int)(Math.random()*3000 - 1700);
         int z = (int)(Math.random()*3000 - 1600);
         coin.setzePosition(x,4000,z);
-        coin.setzeSkalierung(1,Math.random()+0.3,Math.random()+0.3);
+        coin.setzeSkalierung(1,Math.random()+0.3,1);
+        coin.setzeSichtbarkeit(true);
     }
 }

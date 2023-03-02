@@ -1,4 +1,6 @@
 import GLOOP.*;
+import UI.InGame.CoinUI;
+import UI.InGame.Timer;
 
 public class Game {
     GLKamera cam1;
@@ -8,13 +10,15 @@ public class Game {
     Player.Player player;
     Asteroid[] asteroid;
     Coins[] coins;
+    UI.InGame.CoinUI coinDisplay;
+    UI.InGame.Timer timer;
     int asteroidCount,coinCount = 0;
     boolean turnUp,turnDown,turnLeft,turnRight = false;
 
     public Game(){
         asteroidCount = 150;
         coinCount = 10;
-        cam1 = new GLKamera();
+        cam1 = new GLEntwicklerkamera();
         cam1.setzePosition(0,-600,200);
         cam1.setzeBlickpunkt(0,0,200);
         cam1.setzeScheitelrichtung(0,0,1);
@@ -25,7 +29,14 @@ public class Game {
 
         himmel = new GLHimmel("src/img/sternhimmel.jpg");
 
-        player = new Player.Player("MFalcon");
+        player = new Player.Player("TFighter");
+
+        coinDisplay = new CoinUI();
+        coinDisplay.CoinUI();
+
+        timer = new Timer();
+        timer.build();
+
 
         GLTextur asteroidTex = new GLTextur("src/img/Krater.jpg");
         asteroid = new Asteroid[asteroidCount];
@@ -36,7 +47,7 @@ public class Game {
         GLTextur coinTex = new GLTextur("src/img/coin.jpg");
         coins = new Coins[coinCount];
         for (int i=0; i<coinCount; i++){
-            coins[i] = new Coins(player, coinTex);
+            coins[i] = new Coins(player, coinTex,coinDisplay);
         }
     }
     public void run(){
@@ -105,7 +116,7 @@ public class Game {
                     player.rotate(-10,0,0);
                 }
             }
-
+            timer.run();
             for (int i=0; i<asteroidCount; i++)
                 asteroid[i].move();
             for (int i=0; i<coinCount; i++)
