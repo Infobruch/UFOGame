@@ -21,7 +21,7 @@ public class STLParser {
                         i = 0;
                     }
                     vertices.add(new GLVektor(Double.parseDouble(parts[i + 2]), Double.parseDouble(parts[i + 3]), Double.parseDouble(parts[i + 4])));
-                }
+                }//Made by TubYoub
                 if (line.contains("vertex")) {
                     String[] parts = line.split("\\s+");
                     //System.out.println(parts.length);

@@ -33,7 +33,7 @@ public class Model extends GLObjekt {
     @Override
     public void zeichneObjekt(GL2 gl, GLU glu) {
         ArrayList<GLVektor> vertices = STLParser.importModel(this.file);
-
+        //Made by TubYoub
         gl.glBegin(GL.GL_TRIANGLE_STRIP);
         gl.glEnable(GL.GL_DEPTH_TEST);
         //gl.glLineWidth(12.0f);
