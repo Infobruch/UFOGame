@@ -1,4 +1,6 @@
 import GLOOP.*;
+import UI.DeathMenu.DeathMenu;
+
 public class Asteroid{
     private GLKugel asteroid;
     private Player.Player player;
@@ -15,13 +17,12 @@ public class Asteroid{
         asteroid.verschiebe(0,-2,0);
         asteroid.drehe(0.1,0.1,0.1);
         if (asteroid.gibY()<-300) this.reset();
-        //if (this.hit()) player.explode();
     }
 
-    private boolean hit(){
+    public boolean hit(){
         double distance = Math.sqrt(Math.pow( asteroid.gibX()- player.giveX(), 2 ) + Math.pow( asteroid.gibY()- player.giveY(), 2 ) + Math.pow( asteroid.gibZ()- player.giveZ(), 2 ));
         if (player.model == "TFighter") {
-            if (distance < 80) return true;
+            if (distance < 100) return true;
             else return false;
         } else if (player.model == "MFalcon") {
             if (distance < 80) return true;

@@ -1,42 +1,41 @@
 import GLOOP.*;
+import UI.DeathMenu.DeathMenu;
 import UI.InGame.CoinUI;
 import UI.InGame.Timer;
 
 public class Game {
-    GLKamera cam1;
-    GLLicht light;
-    GLTastatur keyboard;
-    GLHimmel himmel;
-    Player.Player player;
-    Asteroid[] asteroid;
-    Coins[] coins;
-    UI.InGame.CoinUI coinDisplay;
-    UI.InGame.Timer timer;
+    private GLKamera cam1;
+    private GLLicht light;
+    private GLTastatur keyboard;
+    private GLHimmel himmel;
+    private Player.Player player;
+    private Asteroid[] asteroid;
+    private Coins[] coins;
+    private UI.InGame.CoinUI coinDisplay;
+    private UI.InGame.Timer timer;
+    private UI.DeathMenu.DeathMenu deathMenu;
     int asteroidCount,coinCount = 0;
     boolean turnUp,turnDown,turnLeft,turnRight = false;
 
     public Game(){
         asteroidCount = 150;
         coinCount = 10;
-        cam1 = new GLKamera();
+        cam1 = new GLEntwicklerkamera();
         cam1.setzePosition(0,-600,200);
         cam1.setzeBlickpunkt(0,0,200);
         cam1.setzeScheitelrichtung(0,0,1);
-
         light  = new GLLicht(-5000,-10000,0);
-
         keyboard = new GLTastatur();
-
-        himmel = new GLHimmel("src/img/sternhimmel.jpg");
-
+        himmel = new GLHimmel("src/img/Sterne.jpg");
         player = new Player.Player("TFighter");
 
         coinDisplay = new CoinUI();
         coinDisplay.CoinUI();
 
         timer = new Timer();
-        timer.build();
 
+        deathMenu = new DeathMenu();
+        deathMenu.build();
 
         GLTextur asteroidTex = new GLTextur("src/img/Krater.jpg");
         asteroid = new Asteroid[asteroidCount];
@@ -51,6 +50,7 @@ public class Game {
         }
     }
     public void run(){
+        timer.build();
         while(!keyboard.esc()){
             if (keyboard.istGedrueckt('a')) {
                 if (turnLeft){
@@ -117,8 +117,12 @@ public class Game {
                 }
             }
             timer.run();
-            for (int i=0; i<asteroidCount; i++)
+            for (int i=0; i<asteroidCount; i++) {
                 asteroid[i].move();
+                if (asteroid[i].hit()) {
+                    deathMenu.onDeath();
+                }
+            }
             for (int i=0; i<coinCount; i++)
                 coins[i].move();
             Sys.warte();
