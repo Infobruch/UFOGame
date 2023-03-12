@@ -16,6 +16,8 @@ public class Game {
     private UI.DeathMenu.DeathMenu deathMenu;
     int asteroidCount,coinCount = 0;
     boolean turnUp,turnDown,turnLeft,turnRight = false;
+    boolean death = false;
+    String selected;
 
     public Game(){
         asteroidCount = 150;
@@ -27,7 +29,7 @@ public class Game {
         light  = new GLLicht(-5000,-10000,0);
         keyboard = new GLTastatur();
         himmel = new GLHimmel("src/img/Sterne.jpg");
-        player = new Player.Player("TFighter");
+        player = new Player.Player("MFalcon");
 
         coinDisplay = new CoinUI();
         coinDisplay.CoinUI();
@@ -51,6 +53,14 @@ public class Game {
     }
     public void run(){
         timer.build();
+        if (death){
+            deathMenu.onSelected();
+            selected = "restart";
+            if (selected == "restart" && keyboard.enter()){
+                deathMenu.run();
+            }
+
+        }
         while(!keyboard.esc()){
             if (keyboard.istGedrueckt('a')) {
                 if (turnLeft){
