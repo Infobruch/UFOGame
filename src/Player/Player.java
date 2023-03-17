@@ -47,8 +47,8 @@ public class Player {
         }
     }
 
-    public void rotate(double x,double y,double z){
-        player.drehe(x,y,z);
+    public void setRotation(double x,double y,double z){
+        player.setzeDrehung(x,y,z);
     }
 
     public double giveX(){

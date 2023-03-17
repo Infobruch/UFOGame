@@ -1,5 +1,4 @@
 import GLOOP.*;
-import UI.DeathMenu.DeathMenu;
 
 public class Asteroid{
     private GLKugel asteroid;
@@ -29,6 +28,10 @@ public class Asteroid{
             else return false;
         }
         else return false;
+    }
+
+    public void setVisibility(boolean visible){
+        asteroid.setzeSichtbarkeit(visible);
     }
 
     private void reset(){
