@@ -12,6 +12,7 @@ public class Timer {
         timer.setzeTextfarbe(1, 0, 0);
         timer.setzePosition(575,50,535);
         timer.setzeText("test",25);
+        timer.setzeSichtbarkeit(false);
     }
     public void run(){
         timer.setzeSichtbarkeit(true);

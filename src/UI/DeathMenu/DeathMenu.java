@@ -28,31 +28,15 @@ public class DeathMenu {
         System.out.println("Succeeded with displaying the Buttons");
     }
     public void onSelected(int button){
-        if (button == 1) {
-            if (!(selected == 1)){
-                if (first){
-                    first = false;
-                }else {
-                    menuButton.setzeTextur("src/img/UI/menu.png");
-                }
+            if (button == 1 && selected != 1) {
+                restartButton.setzeTextur("src/img/UI/selected-restart.png");
+                menuButton.setzeTextur("src/img/UI/menu.png");
+                selected = 1;
+            } else if (button == 2 && selected != 2) {
+                restartButton.setzeTextur("src/img/UI/restart.png");
+                menuButton.setzeTextur("src/img/UI/selected-menu.png");
+                selected = 2;
             }
-            selected = 1;
-            restartButton.setzeTextur("src/img/UI/selected-restart.png");
-            System.out.println("Succeeded with changing texture: restart");
-        } else if (button == 2) {
-            if (!(selected == 1)){
-                if (first){
-                    first = false;
-                }else {
-                    restartButton.setzeTextur("src/img/UI/restart.png");
-                }
-            }
-            selected = 2;
-            menuButton.setzeTextur("src/img/UI/selected-menu.png");
-            System.out.println("Succeeded with changing texture: menu");
-        }else {
-            System.out.println("Wrong number");
-        }
     }
     public void run(){
         restartButton.setzeSichtbarkeit(false);

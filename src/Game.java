@@ -20,8 +20,10 @@ public class Game {
     private UI.MainMenu.Menu mainMenu;
     int asteroidCount, coinCount = 0;
     boolean turnUp, turnDown, turnLeft, turnRight = false;
-    boolean death,menu = false;
-    int deathSelected, menuSelected;
+    boolean death,onDeath = false;
+    boolean menu = false;
+    int deathSelected;
+    int menuSelected = 1;
     String ship = "TFighter";
 
     public Game() {
@@ -36,9 +38,11 @@ public class Game {
         himmel = new GLHimmel("src/img/Sterne.jpg");
         player = new Player.Player(ship);
         player.build();
+        player.setVisibility(false);
 
         goldDisplay = new GoldUI();
         goldDisplay.goldUI();
+        goldDisplay.setVisibility(false);
 
         mainMenu = new Menu();
         mainMenu.build();
@@ -51,12 +55,14 @@ public class Game {
         asteroid = new Asteroid[asteroidCount];
         for (int i = 0; i < asteroidCount; i++) {
             asteroid[i] = new Asteroid(player, asteroidTex);
+            asteroid[i].setVisibility(false);
         }
 
         GLTextur coinTex = new GLTextur("src/img/coin.jpg");
         gold = new Gold[coinCount];
         for (int i = 0; i < coinCount; i++) {
             gold[i] = new Gold(player, coinTex, goldDisplay);
+            gold[i].setVisibility(false);
         }
     }
 
@@ -67,13 +73,16 @@ public class Game {
                 timer.onDeath();
                 goldDisplay.setVisibility(false);
                 player.setVisibility(false);
-                for (int i = 0; i < asteroidCount; i++) {
-                    asteroid[i].setVisibility(false);
-                    asteroid[i].reset(1000);
-                }
-                for (int i = 0; i < coinCount; i++) {
-                    gold[i].setVisibility(false);
-                    gold[i].reset(1000);
+                if (onDeath) {
+                    for (int i = 0; i < asteroidCount; i++) {
+                        asteroid[i].setVisibility(false);
+                        asteroid[i].reset(1000);
+                    }
+                    for (int i = 0; i < coinCount; i++) {
+                        gold[i].setVisibility(false);
+                        gold[i].reset(1000);
+                    }
+                    onDeath = false;
                 }
                 if (keyboard.oben()) {
                     deathSelected = 1;
@@ -82,19 +91,25 @@ public class Game {
                     deathSelected = 2;
                     deathMenu.onSelected(deathSelected);
                 }
-                if (deathSelected == 1 && keyboard.enter()) {
-                    death = false;
-                    deathMenu.run();
-                    goldDisplay.setVisibility(true);
-                    player.reset();
-                } else if (deathSelected == 2 && keyboard.enter()) {
-                    deathMenu.run();
-                    menu = true;
+
+                if (keyboard.enter()) {
+                    if (deathSelected == 1) {
+                        // Perform actions for button 1
+                        death = false;
+                        deathMenu.run();
+                        goldDisplay.setVisibility(true);
+                        player.reset();
+                    } else if (deathSelected == 2) {
+                        // Perform actions for button 2
+                        deathMenu.run();
+                        menu = true;
+                    }
                 }
             }
             if (menu){
                 mainMenu.open();
                 if (keyboard.oben()) {
+                    Sys.warte(2);
                     // if the "oben" button is pressed, move up to the next button
                     if (menuSelected == 3) {
                         menuSelected = 2;
@@ -104,6 +119,7 @@ public class Game {
                         mainMenu.onSelected(1);
                     } // if the current button is already button1, do nothing
                 } else if (keyboard.unten()) {
+                    Sys.warte(2);
                     // if the "unten" button is pressed, move down to the previous button
                     if (menuSelected == 1) {
                         menuSelected = 2;
@@ -114,7 +130,8 @@ public class Game {
                     } // if the current button is already button3, do nothing
                 }
             }
-                if (!death) {
+                if (!death && !menu) {
+                    player.setVisibility(true);
                     if (keyboard.istGedrueckt('w')) {
                         player.setRotation(10, 0, 0);
                         player.moveUp();
@@ -137,6 +154,7 @@ public class Game {
                         if (asteroid[i].hit()) {
                             deathMenu.onDeath();
                             death = true;
+                            onDeath = true;
                             break;
                         }
                     }

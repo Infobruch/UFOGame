@@ -28,7 +28,7 @@ public class Menu {
         startButton.setzeSichtbarkeit(true);
         menuButton.setzeSichtbarkeit(true);
         exitButton.setzeSichtbarkeit(true);
-        System.out.println("Succeeded with displaying the Buttons");
+        //System.out.println("Succeeded with displaying the Buttons");
     }
     public void onSelected(int button){
         if (button == 1) {
@@ -45,13 +45,6 @@ public class Menu {
             selected = 2;
             menuButton.setzeTextur("src/img/UI/selected-menu.png");
             System.out.println("Succeeded with changing texture: menu");
-        } else if (button == 3) {
-            if (!(selected == 3)){
-                exitButton.setzeTextur("src/img/UI/exit.png");
-            }
-            selected = 3;
-            exitButton.setzeTextur("src/img/UI/selected-exit.png");
-            System.out.println("Succeeded with changing texture: exit");
         }else {
             System.out.println("Wrong number");
         }
