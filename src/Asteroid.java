@@ -15,7 +15,7 @@ public class Asteroid{
     public void move(){
         asteroid.verschiebe(0,-2,0);
         asteroid.drehe(0.1,0.1,0.1);
-        if (asteroid.gibY()<-300) this.reset();
+        if (asteroid.gibY()<-300) this.reset(0);
     }
 
     public boolean hit(){
@@ -34,10 +34,10 @@ public class Asteroid{
         asteroid.setzeSichtbarkeit(visible);
     }
 
-    private void reset(){
+    public void reset(int tp){
         int x = (int)(Math.random()*3000 - 1700);
         int z = (int)(Math.random()*3000 - 1600);
-        asteroid.setzePosition(x,4000,z);
+        asteroid.setzePosition(x,4000+tp,z);
         asteroid.setzeSkalierung(1,Math.random()+0.3,Math.random()+0.3);
     }
 }

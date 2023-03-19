@@ -3,8 +3,12 @@
 package UI.DeathMenu;
 
 import GLOOP.*;
+import UI.MainMenu.Menu;
+
 public class DeathMenu {
     GLTafel restartButton, menuButton;
+    int selected = 0;
+    boolean first = true;
     public void build(){
         restartButton = new GLTafel(0,0,0,100,50);
         restartButton.setzeSichtbarkeit(false);
@@ -25,9 +29,25 @@ public class DeathMenu {
     }
     public void onSelected(int button){
         if (button == 1) {
+            if (!(selected == 1)){
+                if (first){
+                    first = false;
+                }else {
+                    menuButton.setzeTextur("src/img/UI/menu.png");
+                }
+            }
+            selected = 1;
             restartButton.setzeTextur("src/img/UI/selected-restart.png");
             System.out.println("Succeeded with changing texture: restart");
         } else if (button == 2) {
+            if (!(selected == 1)){
+                if (first){
+                    first = false;
+                }else {
+                    restartButton.setzeTextur("src/img/UI/restart.png");
+                }
+            }
+            selected = 2;
             menuButton.setzeTextur("src/img/UI/selected-menu.png");
             System.out.println("Succeeded with changing texture: menu");
         }else {
@@ -41,5 +61,6 @@ public class DeathMenu {
         menuButton.setzeSichtbarkeit(false);
         menuButton.setzeTextur("src/img/UI/border.png");
         menuButton.setzeTextur("src/img/UI/menu.png");
+        first = true;
+        }
     }
-}

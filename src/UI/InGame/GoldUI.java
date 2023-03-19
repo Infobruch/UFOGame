@@ -17,7 +17,10 @@ public class GoldUI {
         goldDisplay.setzeText("gold: "+ gold,25);
     }
     public void removeGold(int removedGold){
-        gold = gold + removedGold;
+        gold = gold - removedGold;
         goldDisplay.setzeText("gold: "+ gold,25);
+    }
+    public void setVisibility(boolean visible){
+        goldDisplay.setzeSichtbarkeit(visible);
     }
 }

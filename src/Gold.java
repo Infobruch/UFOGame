@@ -17,7 +17,7 @@ public class Gold {
     public void move(){
         gold.verschiebe(0,-2,0);
         //gold.drehe(0.1,0.1,0.1);
-        if (gold.gibY()<-300) this.reset();
+        if (gold.gibY()<-300) this.reset(0);
         if (hit()){
             gold.verschiebe(0,-100,0);
             gold.setzeSichtbarkeit(false);
@@ -37,12 +37,11 @@ public class Gold {
         else return false;
     }
 
-    private void reset(){
+    public void reset(int tp){
         int x = (int)(Math.random()*3000 - 1700);
-        int z = (int)(Math.random()*3000 - 1600);
+        int z = (int)(Math.random()*3000 - 1600 + tp);
         gold.setzePosition(x,4000,z);
         gold.setzeSkalierung(1,Math.random()+0.3,1);
-        gold.setzeSichtbarkeit(true);
     }
 
     public void setVisibility(boolean visible){

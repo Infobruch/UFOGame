@@ -11,6 +11,8 @@ public class Player {
 
     public Player(String pmodel){
         model = pmodel;
+    }
+    public void build(){
         if (model == "TFighter"){
             player = new Model(0,0,0,0,0,0,new File("src/Model/t-fighter.stl"),model);
             player.skaliere(0.15);
@@ -21,7 +23,6 @@ public class Player {
             player.skaliere(3.0);
         }
     }
-
     public void moveLeft(){
         if (this.giveX() < -500 || this.giveX() == -500){}
         else {
@@ -50,6 +51,9 @@ public class Player {
     public void setRotation(double x,double y,double z){
         player.setzeDrehung(x,y,z);
     }
+    public void rotate(double x, double y, double z){
+        player.drehe(x,y,z);
+    }
 
     public double giveX(){
         return player.gibX();
@@ -68,5 +72,15 @@ public class Player {
             player.drehe(-n,n,n);
             Sys.warte();
         }
+    }
+    public void setVisibility(boolean visible){
+        player.setzeSichtbarkeit(visible);
+    }
+    public void reset(){
+        player.setzeSichtbarkeit(true);
+        player.setzePosition(0,0,0);
+    }
+    public void delete(){
+        player.loesche();
     }
 }
