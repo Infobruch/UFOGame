@@ -10,6 +10,7 @@ public class Game {
     private GLKamera cam1;
     private GLLicht light;
     private GLTastatur keyboard;
+    private GLNebel fog;
     private GLHimmel himmel;
     private Player.Player player;
     private Asteroid[] asteroid;
@@ -18,17 +19,16 @@ public class Game {
     private UI.InGame.Timer timer;
     private UI.DeathMenu.DeathMenu deathMenu;
     private UI.MainMenu.Menu mainMenu;
-    int asteroidCount, coinCount = 0;
+    int asteroidCount = 200;
+    int coinCount = 15;
     boolean turnUp, turnDown, turnLeft, turnRight = false;
     boolean death,onDeath = true;
-    boolean menu = false;
+    boolean menu = true;
     int deathSelected;
-    int menuSelected = 1;
+    int menuSelected;
     String ship = "TFighter";
 
     public Game() {
-        asteroidCount = 150;
-        coinCount = 10;
         cam1 = new GLKamera();
         cam1.setzePosition(0, -600, 200);
         cam1.setzeBlickpunkt(0, 0, 200);
@@ -36,6 +36,9 @@ public class Game {
         light = new GLLicht(-5000, -10000, 0);
         keyboard = new GLTastatur();
         himmel = new GLHimmel("src/img/Sterne.jpg");
+        fog = new GLNebel();
+        fog.setzeNebelbereich(2000,3500);
+        fog.setzeFarbe(0,0,0);
         player = new Player.Player(ship);
         player.build();
         player.setVisibility(false);
@@ -56,6 +59,7 @@ public class Game {
         for (int i = 0; i < asteroidCount; i++) {
             asteroid[i] = new Asteroid(player, asteroidTex);
             asteroid[i].setVisibility(false);
+            asteroid[i].move(5000);
         }
 
         GLTextur coinTex = new GLTextur("src/img/coin.jpg");
@@ -63,12 +67,38 @@ public class Game {
         for (int i = 0; i < coinCount; i++) {
             gold[i] = new Gold(player, coinTex, goldDisplay);
             gold[i].setVisibility(false);
+            gold[i].move(5000);
         }
     }
 
     public void run() {
         timer.build();
         while (!keyboard.esc()) {
+            if (menu){
+                mainMenu.open();
+                if (keyboard.oben()) {
+                    menuSelected = 1;
+                    mainMenu.onSelected(menuSelected);
+                } else if (keyboard.unten()) {
+                    menuSelected = 2;
+                    mainMenu.onSelected(menuSelected);
+                }
+
+                if (keyboard.enter()) {
+                    if (menuSelected == 1) {
+                        // Perform actions for button 1
+                        death = false;
+                        mainMenu.run();
+                        goldDisplay.setVisibility(true);
+                        player.reset();
+                        menu = false;
+                    } else if (menuSelected == 2) {
+                        // Perform actions for button 2
+                        deathMenu.run();
+                        menu = true;
+                    }
+                }
+            }
             if (death && !menu) {
                 timer.onDeath();
                 goldDisplay.setVisibility(false);
@@ -76,13 +106,14 @@ public class Game {
                 if (onDeath) {
                     for (int i = 0; i < asteroidCount; i++) {
                         asteroid[i].setVisibility(false);
-                        asteroid[i].reset(1000);
+                        asteroid[i].move(5000);
                     }
                     for (int i = 0; i < coinCount; i++) {
                         gold[i].setVisibility(false);
-                        gold[i].reset(1000);
+                        gold[i].move(5000);
                     }
                     onDeath = false;
+                    System.out.println();
                 }
                 if (keyboard.oben()) {
                     deathSelected = 1;
@@ -106,30 +137,7 @@ public class Game {
                     }
                 }
             }
-            if (menu){
-                mainMenu.open();
-                if (keyboard.oben()) {
-                    Sys.warte(2);
-                    // if the "oben" button is pressed, move up to the next button
-                    if (menuSelected == 3) {
-                        menuSelected = 2;
-                        mainMenu.onSelected(2);
-                    } else if (menuSelected == 2) {
-                        menuSelected = 1;
-                        mainMenu.onSelected(1);
-                    } // if the current button is already button1, do nothing
-                } else if (keyboard.unten()) {
-                    Sys.warte(2);
-                    // if the "unten" button is pressed, move down to the previous button
-                    if (menuSelected == 1) {
-                        menuSelected = 2;
-                        mainMenu.onSelected(2);
-                    } else if (menuSelected == 2) {
-                        menuSelected = 3;
-                        mainMenu.onSelected(3);
-                    } // if the current button is already button3, do nothing
-                }
-            }
+
                 if (!death && !menu) {
                     player.setVisibility(true);
                     if (keyboard.istGedrueckt('w')) {
@@ -149,7 +157,7 @@ public class Game {
                         player.moveRight();
                     }
                     for (int i = 0; i < asteroidCount; i++) {
-                        asteroid[i].move();
+                        asteroid[i].move(0);
                         asteroid[i].setVisibility(true);
                         if (asteroid[i].hit()) {
                             deathMenu.onDeath();
@@ -159,7 +167,7 @@ public class Game {
                         }
                     }
                     for (int i = 0; i < coinCount; i++) {
-                        gold[i].move();
+                        gold[i].move(0);
                         gold[i].setVisibility(true);
                     }
                     timer.run();

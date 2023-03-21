@@ -14,13 +14,13 @@ public class Gold {
         goldUI = pGoldUI;
     }
 
-    public void move(){
-        gold.verschiebe(0,-2,0);
+    public void move(int tp){
+        gold.verschiebe(0,-2+tp,0);
         //gold.drehe(0.1,0.1,0.1);
-        if (gold.gibY()<-300) this.reset(0);
+        if (gold.gibY()<-300) this.reset();
         if (hit()){
-            gold.verschiebe(0,-100,0);
             gold.setzeSichtbarkeit(false);
+            gold.verschiebe(0,-1000,0);
             goldUI.addGold(1);
         }
     }
@@ -37,11 +37,12 @@ public class Gold {
         else return false;
     }
 
-    public void reset(int tp){
+    public void reset(){
         int x = (int)(Math.random()*3000 - 1700);
-        int z = (int)(Math.random()*3000 - 1600 + tp);
+        int z = (int)(Math.random()*3000 - 1600);
         gold.setzePosition(x,4000,z);
         gold.setzeSkalierung(1,Math.random()+0.3,1);
+
     }
 
     public void setVisibility(boolean visible){

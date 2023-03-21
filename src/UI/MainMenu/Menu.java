@@ -27,22 +27,14 @@ public class Menu {
         //System.out.println("Succeeded with displaying the Buttons");
     }
     public void onSelected(int button){
-        if (button == 1) {
-            if (!(selected == 1)){
-                startButton.setzeTextur("src/img/UI/start.png");
-            }
-            selected = 1;
+        if (button == 1 && selected != 1) {
             startButton.setzeTextur("src/img/UI/selected-start.png");
-            System.out.println("Succeeded with changing texture: start");
-        } else if (button == 2) {
-            if (!(selected == 2)){
-                storeButton.setzeTextur("src/img/UI/menu.png");
-            }
-            selected = 2;
+            storeButton.setzeTextur("src/img/UI/menu.png");
+            selected = 1;
+        } else if (button == 2 && selected != 2) {
+            startButton.setzeTextur("src/img/UI/start.png");
             storeButton.setzeTextur("src/img/UI/selected-menu.png");
-            System.out.println("Succeeded with changing texture: menu");
-        }else {
-            System.out.println("Wrong number");
+            selected = 2;
         }
     }
     public void run(){

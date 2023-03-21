@@ -12,10 +12,10 @@ public class Asteroid{
         player = pPlayer;
     }
 
-    public void move(){
-        asteroid.verschiebe(0,-2,0);
+    public void move(int tp){
+        asteroid.verschiebe(0,-2+tp,0);
         asteroid.drehe(0.1,0.1,0.1);
-        if (asteroid.gibY()<-300) this.reset(0);
+        if (asteroid.gibY()<-300) this.reset();
     }
 
     public boolean hit(){
@@ -34,10 +34,11 @@ public class Asteroid{
         asteroid.setzeSichtbarkeit(visible);
     }
 
-    public void reset(int tp){
+    public void reset(){
         int x = (int)(Math.random()*3000 - 1700);
         int z = (int)(Math.random()*3000 - 1600);
-        asteroid.setzePosition(x,4000+tp,z);
+        asteroid.setzePosition(x,4000,z);
         asteroid.setzeSkalierung(1,Math.random()+0.3,Math.random()+0.3);
+
     }
 }
