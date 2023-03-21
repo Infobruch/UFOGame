@@ -20,7 +20,7 @@ public class Game {
     private UI.MainMenu.Menu mainMenu;
     int asteroidCount, coinCount = 0;
     boolean turnUp, turnDown, turnLeft, turnRight = false;
-    boolean death,onDeath = false;
+    boolean death,onDeath = true;
     boolean menu = false;
     int deathSelected;
     int menuSelected = 1;
@@ -29,7 +29,7 @@ public class Game {
     public Game() {
         asteroidCount = 150;
         coinCount = 10;
-        cam1 = new GLKamera(500,500);
+        cam1 = new GLKamera();
         cam1.setzePosition(0, -600, 200);
         cam1.setzeBlickpunkt(0, 0, 200);
         cam1.setzeScheitelrichtung(0, 0, 1);
