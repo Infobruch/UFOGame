@@ -8,12 +8,12 @@ public class Menu {
     public void build(){
         startButton = new GLTafel(0,0,0,100,50);
         startButton.setzeSichtbarkeit(false);
-        startButton.setzeTextur("src/img/UI/start.png");
+        startButton.setzeTextur("src/img/UI/Start/start.png");
         startButton.drehe(90,180,0);
 
         storeButton = new GLTafel(0,0,0,100,50);
         storeButton.setzeSichtbarkeit(false);
-        storeButton.setzeTextur("src/img/UI/menu.png");
+        storeButton.setzeTextur("src/img/UI/Menu/menu.png");
         storeButton.drehe(90,180,0);
         storeButton.verschiebe(0,0,-60);
 
@@ -28,22 +28,22 @@ public class Menu {
     }
     public void onSelected(int button){
         if (button == 1 && selected != 1) {
-            startButton.setzeTextur("src/img/UI/selected-start.png");
-            storeButton.setzeTextur("src/img/UI/menu.png");
+            startButton.setzeTextur("src/img/UI/Start/selected-start.png");
+            storeButton.setzeTextur("src/img/UI/Menu/menu.png");
             selected = 1;
         } else if (button == 2 && selected != 2) {
-            startButton.setzeTextur("src/img/UI/start.png");
-            storeButton.setzeTextur("src/img/UI/selected-menu.png");
+            startButton.setzeTextur("src/img/UI/Start/start.png");
+            storeButton.setzeTextur("src/img/UI/Menu/selected-menu.png");
             selected = 2;
         }
     }
     public void run(){
         startButton.setzeSichtbarkeit(false);
-        startButton.setzeTextur("src/img/UI/border.png");
-        startButton.setzeTextur("src/img/UI/start.png");
+        startButton.setzeTextur("src/img/UI/Borders/border.png");
+        startButton.setzeTextur("src/img/UI/Start/start.png");
         storeButton.setzeSichtbarkeit(false);
-        storeButton.setzeTextur("src/img/UI/border.png");
-        storeButton.setzeTextur("src/img/UI/menu.png");
+        storeButton.setzeTextur("src/img/UI/Borders/border.png");
+        storeButton.setzeTextur("src/img/UI/Menu/menu.png");
 
     }
 }

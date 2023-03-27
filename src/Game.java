@@ -3,6 +3,7 @@ import UI.DeathMenu.DeathMenu;
 import UI.InGame.GoldUI;
 import UI.InGame.Timer;
 import UI.MainMenu.Menu;
+import UI.Store.StorePageOne;
 
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ public class Game {
     private UI.InGame.Timer timer;
     private UI.DeathMenu.DeathMenu deathMenu;
     private UI.MainMenu.Menu mainMenu;
+    private UI.Store.StorePageOne StoreOne;
     int asteroidCount = 200;
     int coinCount = 15;
     boolean turnUp, turnDown, turnLeft, turnRight = false;
@@ -51,6 +53,11 @@ public class Game {
         mainMenu.build();
         deathMenu = new DeathMenu();
         deathMenu.build();
+        StoreOne = new StorePageOne();
+        StoreOne.build();
+        while (true){
+            if (keyboard.enter()) {break;}
+        }
 
         timer = new Timer();
 
@@ -73,7 +80,7 @@ public class Game {
 
     public void run() {
         timer.build();
-        while (!keyboard.esc()) {
+        while (!keyboard.esc() && !keyboard.alt()) {
             if (menu){
                 mainMenu.open();
                 if (keyboard.oben()) {
