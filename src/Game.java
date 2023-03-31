@@ -23,15 +23,14 @@ public class Game {
     private UI.Store.StorePageOne StoreOne;
     int asteroidCount = 200;
     int coinCount = 15;
-    boolean turnUp, turnDown, turnLeft, turnRight = false;
-    boolean death,onDeath = true;
+    boolean boughtItemOne,boughtItemTwo,boughtItemThree,boughtItemFour;
+    boolean death,onDeath,store = false;
     boolean menu = true;
-    int deathSelected;
-    int menuSelected;
+    int selected;
     String ship = "TFighter";
 
     public Game() {
-        cam1 = new GLKamera();
+        cam1 = new GLEntwicklerkamera();
         cam1.setzePosition(0, -600, 200);
         cam1.setzeBlickpunkt(0, 0, 200);
         cam1.setzeScheitelrichtung(0, 0, 1);
@@ -55,9 +54,6 @@ public class Game {
         deathMenu.build();
         StoreOne = new StorePageOne();
         StoreOne.build();
-        while (true){
-            if (keyboard.enter()) {break;}
-        }
 
         timer = new Timer();
 
@@ -84,25 +80,84 @@ public class Game {
             if (menu){
                 mainMenu.open();
                 if (keyboard.oben()) {
-                    menuSelected = 1;
-                    mainMenu.onSelected(menuSelected);
+                    selected = 1;
+                    mainMenu.onSelected(selected);
                 } else if (keyboard.unten()) {
-                    menuSelected = 2;
-                    mainMenu.onSelected(menuSelected);
+                    selected = 2;
+                    mainMenu.onSelected(selected);
                 }
-
                 if (keyboard.enter()) {
-                    if (menuSelected == 1) {
+                    if (selected == 1) {
                         // Perform actions for button 1
                         death = false;
                         mainMenu.run();
                         goldDisplay.setVisibility(true);
                         player.reset();
                         menu = false;
-                    } else if (menuSelected == 2) {
+                        selected = 0;
+                    } else if (selected == 2) {
                         // Perform actions for button 2
                         deathMenu.run();
                         menu = true;
+                        selected = 0;
+                    }
+                }
+            }
+            if (store){
+                if (keyboard.rechts()) {
+                    // move right to the next button
+                    if (selected < 5) {
+                        selected++;
+                    } else {
+                        selected = 1; // wrap around to the first button
+                    }
+                } else if (keyboard.links()) {
+                    // move left to the previous button
+                    if (selected > 1) {
+                        selected--;
+                    } else {
+                        selected = 5; // wrap around to the last button
+                    }
+                }
+                if (keyboard.enter()) {
+                    // perform actions based on the selected button
+                    switch (selected) {
+                        case 1:
+                            if (boughtItemOne) {
+                                break;
+                            }
+                            StoreOne.onSelected(1);
+                            boughtItemOne = true;
+                            selected = 0;
+                            break;
+                        case 2:
+                            if (boughtItemTwo) {
+                                break;
+                            }
+                            StoreOne.onSelected(2);
+                            boughtItemTwo = true;
+                            break;
+                        case 3:
+                            if (boughtItemThree) {
+                                break;
+                            }
+                            StoreOne.onSelected(3);
+                            boughtItemThree = true;
+                            break;
+                        case 4:
+                            if (boughtItemFour) {
+                                break;
+                            }
+                            StoreOne.onSelected(4);
+                            boughtItemFour = true;
+                            break;
+                        case 5:
+                            // perform actions for button 5
+                            StoreOne.onSelected(5);
+                            break;
+                        default:
+                            // handle error if selected button is out of range
+                            break;
                     }
                 }
             }
@@ -123,24 +178,28 @@ public class Game {
                     System.out.println();
                 }
                 if (keyboard.oben()) {
-                    deathSelected = 1;
-                    deathMenu.onSelected(deathSelected);
+                    selected = 1;
+                    deathMenu.onSelected(selected);
                 } else if (keyboard.unten()) {
-                    deathSelected = 2;
-                    deathMenu.onSelected(deathSelected);
+                    selected = 2;
+                    deathMenu.onSelected(selected);
                 }
 
                 if (keyboard.enter()) {
-                    if (deathSelected == 1) {
+                    if (selected == 1) {
                         // Perform actions for button 1
                         death = false;
                         deathMenu.run();
                         goldDisplay.setVisibility(true);
                         player.reset();
-                    } else if (deathSelected == 2) {
+                        selected = 0;
+                    } else if (selected == 2) {
                         // Perform actions for button 2
                         deathMenu.run();
-                        menu = true;
+                        menu = false;
+                        store = true;
+                        selected = 0;
+                        StoreOne.open(boughtItemOne,boughtItemTwo,boughtItemThree,boughtItemFour);
                     }
                 }
             }
