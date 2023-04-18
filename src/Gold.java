@@ -1,8 +1,8 @@
 import GLOOP.*;
 
 public class Gold {
-    private GLKugel gold;
-    private Player.Player player;
+    private final GLKugel gold;
+    private final Player.Player player;
     UI.InGame.GoldUI goldUI;
     public Gold(Player.Player pPlayer, GLTextur pTexture, UI.InGame.GoldUI pGoldUI){
         int x = (int)(Math.random()*3000 - 1700);
@@ -13,7 +13,6 @@ public class Gold {
         player = pPlayer;
         goldUI = pGoldUI;
     }
-
     public void move(int tp){
         gold.verschiebe(0,-2+tp,0);
         //gold.drehe(0.1,0.1,0.1);
@@ -24,19 +23,15 @@ public class Gold {
             goldUI.addGold(1);
         }
     }
-
     private boolean hit(){
-        double distance = Math.sqrt(Math.pow( gold.gibX()- player.giveX(), 2 ) + Math.pow( gold.gibY()- player.giveY(), 2 ) + Math.pow( gold.gibZ()- player.giveZ(), 2 ));
+        double distance = Math.sqrt(Math.pow( gold.gibX()- player.getX(), 2 ) + Math.pow( gold.gibY()- player.getY(), 2 ) + Math.pow( gold.gibZ()- player.getZ(), 2 ));
         if (player.model == "TFighter") {
-            if (distance < 80) return true;
-            else return false;
+            return distance < 80;
         } else if (player.model == "MFalcon") {
-            if (distance < 80) return true;
-            else return false;
+            return distance < 80;
         }
         else return false;
     }
-
     public void reset(){
         int x = (int)(Math.random()*3000 - 1700);
         int z = (int)(Math.random()*3000 - 1600);
@@ -44,7 +39,6 @@ public class Gold {
         gold.setzeSkalierung(1,Math.random()+0.3,1);
 
     }
-
     public void setVisibility(boolean visible){
         gold.setzeSichtbarkeit(visible);
     }

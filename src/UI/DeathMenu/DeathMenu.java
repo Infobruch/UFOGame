@@ -3,29 +3,28 @@
 package UI.DeathMenu;
 
 import GLOOP.*;
-import UI.MainMenu.Menu;
 
 public class DeathMenu {
     GLTafel restartButton, menuButton;
     int selected = 0;
-    boolean first = true;
     public void build(){
         restartButton = new GLTafel(0,0,0,100,50);
         restartButton.setzeSichtbarkeit(false);
         restartButton.setzeTextur("src/img/UI/Restart/restart.png");
-        restartButton.drehe(90,180,0);
+        restartButton.drehe(90,0,0);
+        restartButton.verschiebe(0,0,250);
 
         menuButton = new GLTafel(0,0,0,100,50);
         menuButton.setzeSichtbarkeit(false);
         menuButton.setzeTextur("src/img/UI/Menu/menu.png");
-        menuButton.drehe(90,180,0);
-        menuButton.verschiebe(0,0,-60);
-        System.out.println("Succeeded with building the Buttons");
+        menuButton.drehe(90,0,0);
+        menuButton.verschiebe(0,0,190);
+        //System.out.println("Succeeded with building the Buttons");
     }
     public void onDeath(){
         restartButton.setzeSichtbarkeit(true);
         menuButton.setzeSichtbarkeit(true);
-        System.out.println("Succeeded with displaying the Buttons");
+        //System.out.println("Succeeded with displaying the Buttons");
     }
     public void onSelected(int button){
             if (button == 1 && selected != 1) {
@@ -45,6 +44,5 @@ public class DeathMenu {
         menuButton.setzeSichtbarkeit(false);
         menuButton.setzeTextur("src/img/UI/Borders/border.png");
         menuButton.setzeTextur("src/img/UI/Menu/menu.png");
-        first = true;
         }
     }

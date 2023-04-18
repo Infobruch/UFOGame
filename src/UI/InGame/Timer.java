@@ -27,4 +27,7 @@ public class Timer {
         deltaTime = 0;
         time = 0;
     }
+    public double getTime() {
+        return time;
+    }
 }

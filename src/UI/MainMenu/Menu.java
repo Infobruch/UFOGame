@@ -9,16 +9,15 @@ public class Menu {
         startButton = new GLTafel(0,0,0,100,50);
         startButton.setzeSichtbarkeit(false);
         startButton.setzeTextur("src/img/UI/Start/start.png");
-        startButton.drehe(90,180,0);
+        startButton.drehe(90,0,0);
+        startButton.verschiebe(0,0,250);
 
         storeButton = new GLTafel(0,0,0,100,50);
         storeButton.setzeSichtbarkeit(false);
-        storeButton.setzeTextur("src/img/UI/Menu/menu.png");
-        storeButton.drehe(90,180,0);
-        storeButton.verschiebe(0,0,-60);
-
-
-        System.out.println("Succeeded with building the Buttons");
+        storeButton.setzeTextur("src/img/UI/Store/store.png");
+        storeButton.drehe(90,0,0);
+        storeButton.verschiebe(0,0,190);
+        //System.out.println("Succeeded with building the Buttons");
     }
     public void open(){
         startButton.setzeSichtbarkeit(true);
@@ -29,11 +28,11 @@ public class Menu {
     public void onSelected(int button){
         if (button == 1 && selected != 1) {
             startButton.setzeTextur("src/img/UI/Start/selected-start.png");
-            storeButton.setzeTextur("src/img/UI/Menu/menu.png");
+            storeButton.setzeTextur("src/img/UI/Store/store.png");
             selected = 1;
         } else if (button == 2 && selected != 2) {
             startButton.setzeTextur("src/img/UI/Start/start.png");
-            storeButton.setzeTextur("src/img/UI/Menu/selected-menu.png");
+            storeButton.setzeTextur("src/img/UI/Store/selected-store.png");
             selected = 2;
         }
     }
@@ -43,8 +42,8 @@ public class Menu {
         startButton.setzeTextur("src/img/UI/Start/start.png");
         storeButton.setzeSichtbarkeit(false);
         storeButton.setzeTextur("src/img/UI/Borders/border.png");
-        storeButton.setzeTextur("src/img/UI/Menu/menu.png");
-
+        storeButton.setzeTextur("src/img/UI/Store/store.png");
+        selected = 0;
     }
 }
 
