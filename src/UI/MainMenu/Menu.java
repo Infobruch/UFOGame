@@ -10,12 +10,13 @@ public class Menu {
         startButton.setzeSichtbarkeit(false);
         startButton.setzeTextur("src/img/UI/Start/start.png");
         startButton.drehe(90,0,0);
+        startButton.verschiebe(0,0,250);
 
         storeButton = new GLTafel(0,0,0,100,50);
         storeButton.setzeSichtbarkeit(false);
         storeButton.setzeTextur("src/img/UI/Store/store.png");
         storeButton.drehe(90,0,0);
-        storeButton.verschiebe(0,0,-60);
+        storeButton.verschiebe(0,0,190);
         //System.out.println("Succeeded with building the Buttons");
     }
     public void open(){

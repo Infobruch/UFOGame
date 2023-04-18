@@ -1,8 +1,8 @@
 import GLOOP.*;
 
 public class Asteroid{
-    private GLKugel asteroid;
-    private Player.Player player;
+    private final GLKugel asteroid;
+    private final Player.Player player;
     public Asteroid(Player.Player pPlayer, GLTextur pTexture){
         int x = (int)(Math.random()*3000 - 1700);
         int y = (int)(Math.random()*4000);
@@ -12,20 +12,25 @@ public class Asteroid{
         player = pPlayer;
     }
 
-    public void move(int tp){
-        asteroid.verschiebe(0,-2+tp,0);
+    public void move(int tp,boolean slower){
+        if (slower) {
+            asteroid.verschiebe(0,(-2*0.9)+tp,0);
+        }
+        else {
+            asteroid.verschiebe(0, -2 + tp, 0);
+        }
         asteroid.drehe(0.1,0.1,0.1);
         if (asteroid.gibY()<-300) this.reset();
     }
-
+    public void scale(double x, double y, double z){
+        asteroid.setzeSkalierung(x,y,z);
+    }
     public boolean hit(){
-        double distance = Math.sqrt(Math.pow( asteroid.gibX()- player.giveX(), 2 ) + Math.pow( asteroid.gibY()- player.giveY(), 2 ) + Math.pow( asteroid.gibZ()- player.giveZ(), 2 ));
+        double distance = Math.sqrt(Math.pow( asteroid.gibX()- player.getX(), 2 ) + Math.pow( asteroid.gibY()- player.getY(), 2 ) + Math.pow( asteroid.gibZ()- player.getZ(), 2 ));
         if (player.model == "TFighter") {
-            if (distance < 100) return true;
-            else return false;
+            return distance < 100;
         } else if (player.model == "MFalcon") {
-            if (distance < 80) return true;
-            else return false;
+            return distance < 80;
         }
         else return false;
     }
@@ -39,6 +44,5 @@ public class Asteroid{
         int z = (int)(Math.random()*3000 - 1600);
         asteroid.setzePosition(x,4000,z);
         asteroid.setzeSkalierung(1,Math.random()+0.3,Math.random()+0.3);
-
     }
 }

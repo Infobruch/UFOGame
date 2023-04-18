@@ -12,12 +12,13 @@ public class DeathMenu {
         restartButton.setzeSichtbarkeit(false);
         restartButton.setzeTextur("src/img/UI/Restart/restart.png");
         restartButton.drehe(90,0,0);
+        restartButton.verschiebe(0,0,250);
 
         menuButton = new GLTafel(0,0,0,100,50);
         menuButton.setzeSichtbarkeit(false);
         menuButton.setzeTextur("src/img/UI/Menu/menu.png");
         menuButton.drehe(90,0,0);
-        menuButton.verschiebe(0,0,-60);
+        menuButton.verschiebe(0,0,190);
         //System.out.println("Succeeded with building the Buttons");
     }
     public void onDeath(){
